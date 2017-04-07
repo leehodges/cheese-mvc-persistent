@@ -1,10 +1,10 @@
 package org.launchcode.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by leeho on 4/6/2017.
@@ -15,25 +15,25 @@ public class Category {
 
     @Id
     @GeneratedValue
-    private int Id;
+    private int id;
 
     @NotNull
-    @Size(min=3, max=15)
+    @Size(min=3,max=15,message ="Must be between 3 and 15 chars long")
     private String name;
 
-    public int getId() {
-        return Id;
-    }
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<Cheese> cheeses = new ArrayList<>();
 
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
     }
 }
